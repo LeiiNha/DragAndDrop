@@ -9,6 +9,20 @@ import UIKit
 import Combine
 import SpriteKit
 
+// TODO LIST
+/*
+ Create stats screen showing how many items are in canvas
+ Delete All button in stats screen
+ add function in coordinator to show stats screen(modal)
+ check triangle issue
+ check memory management
+ add physics
+ unit tests
+ ui tests
+ refactor spriteKit things
+ collection view to shapes?
+ */
+
 final class MainViewController: UIViewController {
     typealias ViewModelType = MainViewModel<MainCoordinator>
     var viewModel: ViewModelType!
@@ -99,7 +113,7 @@ final class MainViewController: UIViewController {
                 self?.viewModel.pressed(shape: .triangle)
             }
             .store(in: &subscriptions)
-        
+
         squareButton
             .publisher(for: .touchUpInside)
             .sink { [weak self] _ in
