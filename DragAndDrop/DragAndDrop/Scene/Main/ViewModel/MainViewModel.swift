@@ -12,6 +12,7 @@ import Combine
 protocol MainViewModelProtocol {
     func pressed(shape: Shape)
     func undoLastAction()
+    func statsButtonPressed()
     var removeLastNodePublisher: AnyPublisher<Void, Never> { get }
 }
 
@@ -28,6 +29,10 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
     private var removeLastNodePassthrough: PassthroughSubject<Void, Never> = .init()
     var removeLastNodePublisher: AnyPublisher<Void, Never> {
         removeLastNodePassthrough.eraseToAnyPublisher()
+    }
+
+    func statsButtonPressed() {
+        // coordinator.showStats()
     }
 
     func undoLastAction() {

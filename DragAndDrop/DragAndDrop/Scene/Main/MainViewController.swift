@@ -32,10 +32,24 @@ final class MainViewController: UIViewController {
         return button
     }()
 
+    private lazy var statsButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Stats", for: .normal)
+        return button
+    }()
+
     private lazy var triangularButton: UIButton = {
         let button = UIButton()
         let heightWidth = 100
         let path = CGMutablePath()
+        /*
+         path.move(to: CGPoint(x: 0.0, y: 25.0))
+         path.addLine(to: CGPoint(x: 25.0, y: -28.3))
+         path.addLine(to: CGPoint(x: -25.0, y: -28.3))
+         path.addLine(to: CGPoint(x: 0.0, y: 25.0))
+         */
 
         path.move(to: CGPoint(x: 0, y: heightWidth))
         path.addLine(to: CGPoint(x:heightWidth/2, y: heightWidth/2))
@@ -85,6 +99,7 @@ final class MainViewController: UIViewController {
                 self?.viewModel.pressed(shape: .triangle)
             }
             .store(in: &subscriptions)
+        
         squareButton
             .publisher(for: .touchUpInside)
             .sink { [weak self] _ in
@@ -92,6 +107,7 @@ final class MainViewController: UIViewController {
                 self?.viewModel.pressed(shape: .square)
             }
             .store(in: &subscriptions)
+
         circleButton
             .publisher(for: .touchUpInside)
             .sink { [weak self] _ in
@@ -99,6 +115,7 @@ final class MainViewController: UIViewController {
                 self?.viewModel.pressed(shape: .circle)
             }
             .store(in: &subscriptions)
+
         undoButton
             .publisher(for: .touchUpInside)
             .sink { [weak self] _ in
@@ -111,20 +128,26 @@ final class MainViewController: UIViewController {
                 self?.removeLastNode()
             }
             .store(in: &subscriptions)
+
+        statsButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.viewModel.statsButtonPressed()
+            }
+            .store(in: &subscriptions)
     }
 
     private func configureSubviews() {
-        view.addSubview(triangularButton, anchors: [.top(50), .leading(20), .height(100), .width(100)])
+        view.addSubview(triangularButton, anchors: [.top(100), .leading(20), .height(50), .width(50)])
         view.addSubview(circleButton, anchors: [.top(100), .centerX(0), .height(50), .width(50)])
         view.addSubview(squareButton, anchors: [.top(100), .trailing(-20), .height(50), .width(50)])
         view.addSubview(sceneView, anchors: [.centerX(0), .centerY(0), .height(sceneView.bounds.height), .width(sceneView.bounds.width)])
-        view.addSubview(undoButton, anchors: [.bottom(-20), .centerX(0), .height(40)])
         sceneView.presentScene(scene)
-        
+        view.addSubview(undoButton, anchors: [.trailing(-20), .width(50), .bottom(-20), .height(40)])
+        view.addSubview(statsButton, anchors: [.bottom(-20), .centerX(0), .height(40), .width(100)])
     }
 
     private func removeLastNode() {
-        let wait = SKAction.wait(forDuration: 0.5)
+        let wait = SKAction.wait(forDuration: 0.1)
         let popOut = SKAction.scale(to: 0, duration: 0.25)
         let remove = SKAction.removeFromParent()
         let popOutAndRemove = SKAction.sequence([wait, popOut, remove])
@@ -188,54 +211,6 @@ final class MainViewController: UIViewController {
         //scene.run(SKAction.repeatForever(SKAction.sequence([addBall, wait])))
     }
 
-    private func spawnRandomSquare() {
-        let wait = SKAction.wait(forDuration: 0.5)
-        let popIn = SKAction.scale(to: 1, duration: 0.25)
-        let popInAndOut = SKAction.sequence([popIn, wait])
-
-        let addBall = SKAction.run { [weak self] in
-            guard let self = self else { return }
-            let square = SKShapeNode(rectOf: .init(width: 50, height: 50))
-            square.fillColor = .red
-            let popInArea = self.scene.frame
-            square.position = popInArea.insetBy(dx: 50, dy: 50).randomPoint
-            square.xScale = 0
-            square.yScale = 0
-            square.run(popInAndOut)
-            self.scene.addChild(square)
-            self.nodes.append(square)
-        }
-
-        scene.run(SKAction.sequence([addBall, wait]))
-    }
-
-    private func spawnRandomTriangle() {
-
-        let wait = SKAction.wait(forDuration: 0.5)
-        let popIn = SKAction.scale(to: 1, duration: 0.25)
-        let popInAndOut = SKAction.sequence([popIn, wait])
-
-        let addBall = SKAction.run { [weak scene, weak self] in
-            guard let self = self, let scene = scene else { return }
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: 0.0, y: 25.0))
-            path.addLine(to: CGPoint(x: 25.0, y: -28.3))
-            path.addLine(to: CGPoint(x: -25.0, y: -28.3))
-            path.addLine(to: CGPoint(x: 0.0, y: 25.0))
-            let triangle = SKShapeNode(path: path.cgPath)
-            triangle.fillColor = .blue
-            let popInArea = scene.frame
-            triangle.position = popInArea.insetBy(dx: 25, dy: 25).randomPoint
-            triangle.xScale = 0
-            triangle.yScale = 0
-            triangle.run(popInAndOut)
-            scene.addChild(triangle)
-            self.nodes.append(triangle)
-        }
-
-        scene.run(SKAction.sequence([addBall, wait]))
-
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = sceneView.convert(touch.location(in: sceneView), to: scene)
