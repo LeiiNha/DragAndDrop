@@ -31,7 +31,6 @@ final class GameScene: SKScene {
                     if shapes == Shape.allCases {
                         self.removeAllChildren()
                     } else {
-
                         let nodesToRemove = self.nodeShape.compactMap { item -> SKNode? in
                             if shapes.contains(item.shape) { return item.node }
                             return nil

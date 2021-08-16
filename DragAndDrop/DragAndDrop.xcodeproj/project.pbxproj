@@ -11,7 +11,6 @@
 		CC3C030726C8205900B0CD3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C030626C8205900B0CD3D /* SceneDelegate.swift */; };
 		CC3C030E26C8205B00B0CD3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC3C030D26C8205B00B0CD3D /* Assets.xcassets */; };
 		CC3C031126C8205B00B0CD3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC3C030F26C8205B00B0CD3D /* LaunchScreen.storyboard */; };
-		CC3C031C26C8205B00B0CD3D /* DragAndDropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C031B26C8205B00B0CD3D /* DragAndDropTests.swift */; };
 		CC3C032726C8205B00B0CD3D /* DragAndDropUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C032626C8205B00B0CD3D /* DragAndDropUITests.swift */; };
 		CC3C033826C821AE00B0CD3D /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C033726C821AE00B0CD3D /* Shape.swift */; };
 		CC3C033B26C8229400B0CD3D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C033A26C8229400B0CD3D /* AppCoordinator.swift */; };
@@ -31,11 +30,12 @@
 		CC3C036126C9960F00B0CD3D /* CGRect+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */; };
 		CC3C036426CA564700B0CD3D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036326CA564700B0CD3D /* GameScene.swift */; };
 		CC3C036626CA565300B0CD3D /* GameSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */; };
-		CCDB83C126CA8DCE00E33F3F /* StatsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */; };
 		CCDB83C326CA8DE100E33F3F /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */; };
-		CCDB83C526CA8DED00E33F3F /* GameSceneViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */; };
 		CCDB83C726CAB8B700E33F3F /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */; };
 		CCDB83C926CACDA400E33F3F /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C826CACDA400E33F3F /* MainCollectionViewCell.swift */; };
+		CCDB83CB26CAD2FE00E33F3F /* CoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83CA26CAD2FE00E33F3F /* CoordinatorMock.swift */; };
+		CCDB83CD26CAD3DE00E33F3F /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83CC26CAD3DE00E33F3F /* Mock.swift */; };
+		CCDB83CF26CAD4D000E33F3F /* GameSceneViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83CE26CAD4D000E33F3F /* GameSceneViewModelMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,6 @@
 		CC3C031026C8205B00B0CD3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC3C031226C8205B00B0CD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC3C031726C8205B00B0CD3D /* DragAndDropTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragAndDropTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC3C031B26C8205B00B0CD3D /* DragAndDropTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropTests.swift; sourceTree = "<group>"; };
 		CC3C031D26C8205B00B0CD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC3C032226C8205B00B0CD3D /* DragAndDropUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragAndDropUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC3C032626C8205B00B0CD3D /* DragAndDropUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropUITests.swift; sourceTree = "<group>"; };
@@ -86,11 +85,12 @@
 		CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Random.swift"; sourceTree = "<group>"; };
 		CC3C036326CA564700B0CD3D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModel.swift; sourceTree = "<group>"; };
-		CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModelTests.swift; sourceTree = "<group>"; };
 		CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
-		CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModelTests.swift; sourceTree = "<group>"; };
 		CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
 		CCDB83C826CACDA400E33F3F /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCDB83CA26CAD2FE00E33F3F /* CoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorMock.swift; sourceTree = "<group>"; };
+		CCDB83CC26CAD3DE00E33F3F /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		CCDB83CE26CAD4D000E33F3F /* GameSceneViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModelMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +157,11 @@
 		CC3C031A26C8205B00B0CD3D /* DragAndDropTests */ = {
 			isa = PBXGroup;
 			children = (
-				CC3C031B26C8205B00B0CD3D /* DragAndDropTests.swift */,
 				CC3C031D26C8205B00B0CD3D /* Info.plist */,
-				CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */,
 				CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */,
-				CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */,
+				CCDB83CE26CAD4D000E33F3F /* GameSceneViewModelMock.swift */,
+				CCDB83CA26CAD2FE00E33F3F /* CoordinatorMock.swift */,
+				CCDB83CC26CAD3DE00E33F3F /* Mock.swift */,
 			);
 			path = DragAndDropTests;
 			sourceTree = "<group>";
@@ -445,10 +445,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCDB83CF26CAD4D000E33F3F /* GameSceneViewModelMock.swift in Sources */,
 				CCDB83C326CA8DE100E33F3F /* MainViewModelTests.swift in Sources */,
-				CC3C031C26C8205B00B0CD3D /* DragAndDropTests.swift in Sources */,
-				CCDB83C126CA8DCE00E33F3F /* StatsViewModelTests.swift in Sources */,
-				CCDB83C526CA8DED00E33F3F /* GameSceneViewModelTests.swift in Sources */,
+				CCDB83CB26CAD2FE00E33F3F /* CoordinatorMock.swift in Sources */,
+				CCDB83CD26CAD3DE00E33F3F /* Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
