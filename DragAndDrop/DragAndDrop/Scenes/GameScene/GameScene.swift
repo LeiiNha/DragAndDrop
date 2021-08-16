@@ -46,7 +46,6 @@ final class GameScene: SKScene {
             lastNode?.run(waitAndMove)
         }
         scene.run(moveLastNode)
-        scene.update(0.1)
     }
 
     private func remove(node: SKNode?) {

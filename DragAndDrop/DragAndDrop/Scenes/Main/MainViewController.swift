@@ -10,17 +10,16 @@ import SpriteKit
 
 // TODO LIST
 /*
- Create stats screen showing how many items are in canvas
- Delete All button in stats screen
+ OK Create stats screen showing how many items are in canvas
+ OK Delete All button in stats screen
  OK add function in coordinator to show stats screen(modal)
- check triangle issue
- check memory management
- add physics
+ OK check memory management
+ OK refactor spriteKit things
  unit tests
  ui tests
- refactor spriteKit things
- collection view to shapes?
  long tap to remove
+ collection view to shapes?
+ add physics
  */
 
 final class MainViewController: UIViewController {
