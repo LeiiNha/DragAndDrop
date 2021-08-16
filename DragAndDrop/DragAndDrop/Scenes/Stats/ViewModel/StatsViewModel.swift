@@ -12,27 +12,38 @@ protocol StatsViewModelProtocol {
     var triangleCount: Int { get }
     var squareCount: Int { get }
     var circleCount: Int { get }
+    func removeAllPressed()
+    var removeAllPublisher: AnyPublisher<Void, Never> { get }
 }
 
 final class StatsViewModel<CoordinatorType: DefaultCoordinatorProtocol>: CoordinatedViewModel, StatsViewModelProtocol {
     let coordinator: CoordinatorType
     private var subscriptions: Set<AnyCancellable> = .init()
 
-    private var actionsLog: [NodeAction]
+    private(set) var triangleCount: Int = 0
+    private(set) var squareCount: Int = 0
+    private(set) var circleCount: Int = 0
 
     init(coordinator: CoordinatorType, logs: [NodeAction]) {
         self.coordinator = coordinator
-        self.actionsLog = logs
+        logs.forEach { [weak self] log in
+            if case let .spawn(shape, _ ) = log {
+                switch shape {
+                case .circle: self?.circleCount+=1
+                case .square: self?.squareCount+=1
+                case .triangle: self?.triangleCount+=1
+                }
+            }
+        }
     }
 
-    var triangleCount: Int {
-        5
+    private var removeAllPassthrough: PassthroughSubject<Void, Never> = .init()
+    var removeAllPublisher: AnyPublisher<Void, Never> {
+        removeAllPassthrough.eraseToAnyPublisher()
     }
 
-    var squareCount: Int {
-        4
-    }
-    var circleCount: Int {
-        3
+    func removeAllPressed() {
+        removeAllPassthrough.send()
+        coordinator.dismiss()
     }
 }

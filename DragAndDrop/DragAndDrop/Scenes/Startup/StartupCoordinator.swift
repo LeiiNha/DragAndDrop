@@ -14,9 +14,6 @@ protocol StartupCoordinatorProtocol: Coordinator {
 
 struct StartupCoordinator: StartupCoordinatorProtocol {
     let weakViewController: WeakReference<UINavigationController>
-    init(weakViewController: WeakReference<ViewController>) {
-        self.weakViewController = weakViewController
-    }
 
     func showRootScene() {
         let viewController = MainViewController()
