@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainCollectionViewCell: UICollectionViewCell {
+final class MainCollectionViewCell: UICollectionViewCell {
     static let identifier = "MainCollectionViewCell"
     func configure(shape: Shape) {
         let label = UILabel()

@@ -52,7 +52,6 @@ final class MainViewController: UIViewController {
 
     private lazy var sceneView: SKView = {
         let view = SKView(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 40, height: view.bounds.width - 40))
-        view.backgroundColor = .clear
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
         return view
@@ -139,6 +138,8 @@ final class MainViewController: UIViewController {
         sceneView.presentScene(gameScene)
     }
 }
+
+// MARK: -CollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -178,6 +179,7 @@ extension MainViewController {
     }
 }
 
+// MARK: -Section
 extension MainViewController {
     enum Section: CaseIterable {
         case buttons

@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-enum Shape: Int, CaseIterable, Hashable {
+enum Shape: CaseIterable, Hashable {
     case square
     case circle
     case triangle
