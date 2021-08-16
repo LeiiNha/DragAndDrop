@@ -35,6 +35,7 @@
 		CCDB83C326CA8DE100E33F3F /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */; };
 		CCDB83C526CA8DED00E33F3F /* GameSceneViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */; };
 		CCDB83C726CAB8B700E33F3F /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */; };
+		CCDB83C926CACDA400E33F3F /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C826CACDA400E33F3F /* MainCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModelTests.swift; sourceTree = "<group>"; };
 		CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
+		CCDB83C826CACDA400E33F3F /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 		CC3C034726C823AD00B0CD3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCDB83C826CACDA400E33F3F /* MainCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				CC3C034926C823B800B0CD3D /* MainCoordinator.swift in Sources */,
 				CC3C036126C9960F00B0CD3D /* CGRect+Random.swift in Sources */,
 				CC3C034026C8232D00B0CD3D /* WeakReference.swift in Sources */,
+				CCDB83C926CACDA400E33F3F /* MainCollectionViewCell.swift in Sources */,
 				CC3C035026C824BF00B0CD3D /* StartupViewController.swift in Sources */,
 				CC3C030526C8205900B0CD3D /* AppDelegate.swift in Sources */,
 				CC3C030726C8205900B0CD3D /* SceneDelegate.swift in Sources */,

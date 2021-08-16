@@ -51,7 +51,7 @@ final class GameScene: SKScene {
         let move = SKAction.move(to: .init(x: CGFloat(log.x), y: CGFloat(log.y)), duration: 0.25)
         let waitAndMove = SKAction.sequence([wait, move, wait])
 
-        guard let lastNode = self.nodeShape.first(where: { $0.node.name == log.uuid })?.node else { return }
+        guard let lastNode = nodeShape.first(where: { $0.node.name == log.uuid })?.node else { return }
         let moveLastNode = SKAction.run { [weak lastNode] in
             lastNode?.run(waitAndMove)
         }
@@ -87,7 +87,7 @@ final class GameScene: SKScene {
         }
 
         scene.run(SKAction.sequence([addNode, wait]))
-        self.nodeShape.append(.init(node: node, shape: shape))
+        nodeShape.append(.init(node: node, shape: shape))
     }
 }
 

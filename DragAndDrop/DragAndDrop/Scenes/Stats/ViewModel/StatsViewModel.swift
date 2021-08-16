@@ -21,7 +21,8 @@ final class StatsViewModel<CoordinatorType: DefaultCoordinatorProtocol>: Coordin
 
     private(set) lazy var statsDetails: [StatsViewController.StatsDetails] = {
         var stats:  [StatsViewController.StatsDetails] = []
-        Shape.allCases.forEach { shape in
+        Shape.allCases.forEach { [weak self] shape in
+            guard let self = self else { return }
             let shapeStat = self.logs.filter { log in
                 if case let .spawn(logShape, _) = log {
                     return logShape == shape

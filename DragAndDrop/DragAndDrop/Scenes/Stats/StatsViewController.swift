@@ -20,8 +20,8 @@ final class StatsViewController: UIViewController {
         return tableView
     }()
 
-    private lazy var dataSource: DataSource? = {
-        return DataSource(tableView: tableView) {  tableView, indexPath, stat in
+    private lazy var dataSource: StatsDataSource? = {
+        return StatsDataSource(tableView: tableView) {  tableView, indexPath, stat in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StatsTableViewCell.identifier,
                                                                for: indexPath)
                         as? StatsTableViewCell else { return  UITableViewCell() }
@@ -90,7 +90,7 @@ extension StatsViewController: UITableViewDelegate {
     }
 }
 
-final class DataSource: UITableViewDiffableDataSource<StatsViewController.Section,
+final class StatsDataSource: UITableViewDiffableDataSource<StatsViewController.Section,
                                                 StatsViewController.StatsDetails> {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

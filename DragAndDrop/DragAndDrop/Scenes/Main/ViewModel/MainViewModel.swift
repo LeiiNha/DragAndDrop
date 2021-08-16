@@ -78,10 +78,10 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
         switch lastAction.element {
         case .dragDrop(let log):
             gameViewModel.doNodeAction(nodeAction: .undoLastDragDrop(log: log))
-            self.actionsLog.remove(at: lastAction.offset)
+            actionsLog.remove(at: lastAction.offset)
         case .spawn:
             gameViewModel.doNodeAction(nodeAction: .removeLastSpawn)
-            self.actionsLog.remove(at: lastAction.offset)
+            actionsLog.remove(at: lastAction.offset)
         case .removeAll: break
         case .longTapRemove: break
         case .undoLastDragDrop: break

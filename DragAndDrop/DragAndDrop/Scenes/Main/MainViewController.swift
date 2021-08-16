@@ -17,25 +17,23 @@ import SpriteKit
  OK refactor spriteKit things
  OK long tap to remove
  OK Swipe to delete in stats screen
+ OK collection view to shapes
+
  unit tests
  ui tests
-
- collection view to shapes?
  add physics
  */
 
 final class MainViewController: UIViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Shape>
+    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Shape>
     typealias ViewModelType = MainViewModel<MainCoordinator>
+
     var viewModel: ViewModelType!
     private var subscriptions: Set<AnyCancellable> = .init()
     private var currentNode: SKNode?
-
-    private lazy var circleButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = Shape.circle.color
-        button.setTitle("Circle", for: .normal)
-        return button
-    }()
+    private var dataSource: DataSource?
+    private var collectionView: UICollectionView?
 
     private lazy var undoButton: UIButton = {
         let button = UIButton()
@@ -52,22 +50,8 @@ final class MainViewController: UIViewController {
         return button
     }()
 
-    private lazy var triangularButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Triangle", for: .normal)
-        button.backgroundColor = Shape.triangle.color
-        return button
-    }()
-
-    private lazy var squareButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Square", for: .normal)
-        button.backgroundColor = Shape.square.color
-        return button
-    }()
-
     private lazy var sceneView: SKView = {
-        let view = SKView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.width - 40))
+        let view = SKView(frame: CGRect(x: 0, y: 0, width: view.bounds.width - 40, height: view.bounds.width - 40))
         view.backgroundColor = .clear
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
@@ -77,6 +61,8 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureCollectionView()
+        configureDataSource()
         configureSubviews()
         configureSubscriptions()
         configureGameScene()
@@ -85,39 +71,45 @@ final class MainViewController: UIViewController {
 
     private func configureLongTap() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
-        self.view.addGestureRecognizer(longPressRecognizer)
+        view.addGestureRecognizer(longPressRecognizer)
     }
 
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
         guard let scene = sceneView.scene else { return }
         let location = sceneView.convert(sender.location(in: sceneView), to: scene)
         if let touchedNodeName = scene.nodes(at: location).first?.name {
-            self.viewModel.removeNode(uuid: touchedNodeName)
+            viewModel.removeNode(uuid: touchedNodeName)
         }
     }
 
-    private func configureSubscriptions() {
-        Publishers.Merge3(
-            triangularButton.publisher(for: .touchUpInside).eraseToAnyPublisher(),
-            squareButton.publisher(for: .touchUpInside).eraseToAnyPublisher(),
-            circleButton.publisher(for: .touchUpInside).eraseToAnyPublisher())
-            .sink { [weak self] button in
-                guard let self = self else { return }
-                var shape: Shape?
-                switch button {
-                case self.triangularButton:
-                    shape = .triangle
-                case self.circleButton:
-                    shape = .circle
-                case self.squareButton:
-                    shape = .square
-                default: break
-                }
-                guard let shape = shape else { return }
-                self.viewModel.spawn(shape: shape)
-            }
-            .store(in: &subscriptions)
+    private func configureCollectionView() {
+        collectionView = UICollectionView(frame: view.bounds,
+                                          collectionViewLayout: Section.buttons.layout)
+        guard let collectionView = collectionView else { return }
+        collectionView.isScrollEnabled = true
+        collectionView.delegate = self
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .clear
+        collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier:  MainCollectionViewCell.identifier)
+        view.addSubview(collectionView)
+    }
 
+    private func configureDataSource() {
+        guard let collectionView = collectionView else { return }
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> MainCollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  MainCollectionViewCell.identifier, for: indexPath) as? MainCollectionViewCell
+            cell?.configure(shape: item)
+            return cell
+        })
+
+        var snapshot = DataSourceSnapshot()
+        snapshot.appendSections([Section.buttons])
+        snapshot.appendItems(Shape.allCases)
+
+        dataSource?.apply(snapshot, animatingDifferences: false)
+    }
+
+    private func configureSubscriptions() {
         undoButton
             .publisher(for: .touchUpInside)
             .sink { [weak self] _ in
@@ -130,14 +122,12 @@ final class MainViewController: UIViewController {
                 self?.viewModel.statsButtonPressed()
             }
             .store(in: &subscriptions)
-
-        
     }
 
     private func configureSubviews() {
-        view.addSubview(triangularButton, anchors: [.top(100), .leading(20), .height(50), .width(80)])
-        view.addSubview(circleButton, anchors: [.top(100), .centerX(0), .height(50), .width(80)])
-        view.addSubview(squareButton, anchors: [.top(100), .trailing(-20), .height(50), .width(80)])
+        if let collectionView = collectionView {
+            view.addSubview(collectionView, anchors: [.top(100), .height(200), .leading(20), .trailing(-20)])
+        }
         view.addSubview(sceneView, anchors: [.centerX(0), .centerY(0), .height(sceneView.bounds.height), .width(sceneView.bounds.width)])
         view.addSubview(undoButton, anchors: [.trailing(-20), .width(50), .bottom(-20), .height(40)])
         view.addSubview(statsButton, anchors: [.bottom(-20), .centerX(0), .height(40), .width(100)])
@@ -145,16 +135,26 @@ final class MainViewController: UIViewController {
 
     private func configureGameScene() {
         let gameScene = GameScene(size: sceneView.bounds.size)
-        gameScene.configure(with: self.viewModel.gameViewModel)
+        gameScene.configure(with: viewModel.gameViewModel)
         sceneView.presentScene(gameScene)
     }
+}
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let shape = dataSource?.itemIdentifier(for: indexPath) else {   return  }
+        viewModel.spawn(shape: shape)
+    }
+}
 
+// MARK: -Touch Events
+extension MainViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first, let scene = sceneView.scene {
             let location = sceneView.convert(touch.location(in: sceneView), to: scene)
             let touchedNodes = scene.nodes(at: location)
             for node in touchedNodes.reversed() {
-                    self.currentNode = node
+                self.currentNode = node
             }
         }
     }
@@ -166,14 +166,34 @@ final class MainViewController: UIViewController {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first, let nodeName = self.currentNode?.name, let scene = sceneView.scene {
+        if let touch = touches.first, let nodeName = currentNode?.name, let scene = sceneView.scene {
             let touchLocation = sceneView.convert(touch.location(in: sceneView), to: scene)
-            self.viewModel.movedNode(previousX: Float(touchLocation.x), previousY: Float( touchLocation.y), uuid: nodeName)
+            viewModel.movedNode(previousX: Float(touchLocation.x), previousY: Float( touchLocation.y), uuid: nodeName)
         }
-        self.currentNode = nil
+        currentNode = nil
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.currentNode = nil
+        currentNode = nil
+    }
+}
+
+extension MainViewController {
+    enum Section: CaseIterable {
+        case buttons
+        var layout: UICollectionViewLayout {
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 8, bottom: 8, trailing: 8)
+
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize:  groupSize, subitems: [item])
+            group.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
+            let section = NSCollectionLayoutSection(group: group)
+
+
+            return UICollectionViewCompositionalLayout(section: section)
+        }
+        var groupSize: NSCollectionLayoutSize { .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.2)) }
+
+        var itemSize: NSCollectionLayoutSize { .init(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1)) }
     }
 }
