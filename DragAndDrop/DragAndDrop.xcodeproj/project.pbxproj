@@ -31,6 +31,10 @@
 		CC3C036126C9960F00B0CD3D /* CGRect+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */; };
 		CC3C036426CA564700B0CD3D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036326CA564700B0CD3D /* GameScene.swift */; };
 		CC3C036626CA565300B0CD3D /* GameSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */; };
+		CCDB83C126CA8DCE00E33F3F /* StatsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */; };
+		CCDB83C326CA8DE100E33F3F /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */; };
+		CCDB83C526CA8DED00E33F3F /* GameSceneViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */; };
+		CCDB83C726CAB8B700E33F3F /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Random.swift"; sourceTree = "<group>"; };
 		CC3C036326CA564700B0CD3D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModel.swift; sourceTree = "<group>"; };
+		CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModelTests.swift; sourceTree = "<group>"; };
+		CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
+		CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModelTests.swift; sourceTree = "<group>"; };
+		CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +157,9 @@
 			children = (
 				CC3C031B26C8205B00B0CD3D /* DragAndDropTests.swift */,
 				CC3C031D26C8205B00B0CD3D /* Info.plist */,
+				CCDB83C026CA8DCE00E33F3F /* StatsViewModelTests.swift */,
+				CCDB83C226CA8DE100E33F3F /* MainViewModelTests.swift */,
+				CCDB83C426CA8DED00E33F3F /* GameSceneViewModelTests.swift */,
 			);
 			path = DragAndDropTests;
 			sourceTree = "<group>";
@@ -251,6 +262,7 @@
 		CC3C035A26C9826800B0CD3D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCDB83C626CAB8B700E33F3F /* StatsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,6 +432,7 @@
 				CC3C035726C82AE000B0CD3D /* UIControl+Combine.swift in Sources */,
 				CC3C033D26C822BD00B0CD3D /* StartupCoordinator.swift in Sources */,
 				CC3C035926C82C3D00B0CD3D /* NodeAction.swift in Sources */,
+				CCDB83C726CAB8B700E33F3F /* StatsTableViewCell.swift in Sources */,
 				CC3C034226C8234C00B0CD3D /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +441,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCDB83C326CA8DE100E33F3F /* MainViewModelTests.swift in Sources */,
 				CC3C031C26C8205B00B0CD3D /* DragAndDropTests.swift in Sources */,
+				CCDB83C126CA8DCE00E33F3F /* StatsViewModelTests.swift in Sources */,
+				CCDB83C526CA8DED00E33F3F /* GameSceneViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

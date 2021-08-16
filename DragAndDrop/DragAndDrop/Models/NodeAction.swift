@@ -13,7 +13,7 @@ enum NodeAction {
     case removeLastSpawn
     case removeFirstSpawn
     case undoLastDragDrop(log: DragDropLog)
-    case removeAll
+    case removeAll(shapes: [Shape])
     case longTapRemove(uuid: String)
 }
 

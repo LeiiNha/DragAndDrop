@@ -30,9 +30,9 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
 
     func statsButtonPressed() {
         let statsViewModel = coordinator.showStats(logs: actionsLog)
-        statsViewModel.removeAllPublisher
-            .sink { [weak self] _ in
-                let action = NodeAction.removeAll
+        statsViewModel.removeShapesPublisher
+            .sink { [weak self] shapes in
+                let action = NodeAction.removeAll(shapes: shapes)
                 self?.actionsLog.removeAll()
                 self?.gameViewModel.doNodeAction(nodeAction: action)
                 self?.actionsLog.append(action)

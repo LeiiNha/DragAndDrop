@@ -16,8 +16,8 @@ import SpriteKit
  OK check memory management
  OK refactor spriteKit things
  OK long tap to remove
+ OK Swipe to delete in stats screen
  unit tests
- Swipe to delete in stats screen
  ui tests
 
  collection view to shapes?
@@ -32,7 +32,7 @@ final class MainViewController: UIViewController {
 
     private lazy var circleButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .green
+        button.backgroundColor = Shape.circle.color
         button.setTitle("Circle", for: .normal)
         return button
     }()
@@ -55,14 +55,14 @@ final class MainViewController: UIViewController {
     private lazy var triangularButton: UIButton = {
         let button = UIButton()
         button.setTitle("Triangle", for: .normal)
-        button.backgroundColor = .blue
+        button.backgroundColor = Shape.triangle.color
         return button
     }()
 
     private lazy var squareButton: UIButton = {
         let button = UIButton()
         button.setTitle("Square", for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = Shape.square.color
         return button
     }()
 

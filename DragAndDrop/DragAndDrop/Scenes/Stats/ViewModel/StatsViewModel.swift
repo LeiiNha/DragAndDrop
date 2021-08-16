@@ -9,41 +9,42 @@ import Foundation
 import Combine
 
 protocol StatsViewModelProtocol {
-    var triangleCount: Int { get }
-    var squareCount: Int { get }
-    var circleCount: Int { get }
-    func removeAllPressed()
-    var removeAllPublisher: AnyPublisher<Void, Never> { get }
+    var statsDetails: [StatsViewController.StatsDetails] { get }
+    func removeShapes(shapes: [Shape])
+    var removeShapesPublisher: AnyPublisher<[Shape], Never> { get }
 }
 
 final class StatsViewModel<CoordinatorType: DefaultCoordinatorProtocol>: CoordinatedViewModel, StatsViewModelProtocol {
     let coordinator: CoordinatorType
     private var subscriptions: Set<AnyCancellable> = .init()
+    private let logs: [NodeAction]
 
-    private(set) var triangleCount: Int = 0
-    private(set) var squareCount: Int = 0
-    private(set) var circleCount: Int = 0
+    private(set) lazy var statsDetails: [StatsViewController.StatsDetails] = {
+        var stats:  [StatsViewController.StatsDetails] = []
+        Shape.allCases.forEach { shape in
+            let shapeStat = self.logs.filter { log in
+                if case let .spawn(logShape, _) = log {
+                    return logShape == shape
+                }
+                return false
+            }
+            stats.append(.init(count: shapeStat.count, shape: shape))
+        }
+        return stats
+    }()
 
     init(coordinator: CoordinatorType, logs: [NodeAction]) {
         self.coordinator = coordinator
-        logs.forEach { [weak self] log in
-            if case let .spawn(shape, _ ) = log {
-                switch shape {
-                case .circle: self?.circleCount+=1
-                case .square: self?.squareCount+=1
-                case .triangle: self?.triangleCount+=1
-                }
-            }
-        }
+        self.logs = logs
     }
 
-    private var removeAllPassthrough: PassthroughSubject<Void, Never> = .init()
-    var removeAllPublisher: AnyPublisher<Void, Never> {
-        removeAllPassthrough.eraseToAnyPublisher()
+    private var removeShapesPassthrough: PassthroughSubject<[Shape], Never> = .init()
+    var removeShapesPublisher: AnyPublisher<[Shape], Never> {
+        removeShapesPassthrough.eraseToAnyPublisher()
     }
 
-    func removeAllPressed() {
-        removeAllPassthrough.send()
+    func removeShapes(shapes: [Shape]) {
+        removeShapesPassthrough.send(shapes)
         coordinator.dismiss()
     }
 }
