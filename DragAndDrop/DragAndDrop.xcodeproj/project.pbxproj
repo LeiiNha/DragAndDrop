@@ -25,7 +25,12 @@
 		CC3C035226C824C800B0CD3D /* StartupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035126C824C800B0CD3D /* StartupViewModel.swift */; };
 		CC3C035526C828AF00B0CD3D /* UIView+LayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035426C828AF00B0CD3D /* UIView+LayoutAnchor.swift */; };
 		CC3C035726C82AE000B0CD3D /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035626C82AE000B0CD3D /* UIControl+Combine.swift */; };
-		CC3C035926C82C3D00B0CD3D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035826C82C3D00B0CD3D /* Action.swift */; };
+		CC3C035926C82C3D00B0CD3D /* NodeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035826C82C3D00B0CD3D /* NodeAction.swift */; };
+		CC3C035D26C9829A00B0CD3D /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035C26C9829A00B0CD3D /* StatsViewController.swift */; };
+		CC3C035F26C982A700B0CD3D /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C035E26C982A700B0CD3D /* StatsViewModel.swift */; };
+		CC3C036126C9960F00B0CD3D /* CGRect+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */; };
+		CC3C036426CA564700B0CD3D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036326CA564700B0CD3D /* GameScene.swift */; };
+		CC3C036626CA565300B0CD3D /* GameSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +75,12 @@
 		CC3C035126C824C800B0CD3D /* StartupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewModel.swift; sourceTree = "<group>"; };
 		CC3C035426C828AF00B0CD3D /* UIView+LayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LayoutAnchor.swift"; sourceTree = "<group>"; };
 		CC3C035626C82AE000B0CD3D /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
-		CC3C035826C82C3D00B0CD3D /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		CC3C035826C82C3D00B0CD3D /* NodeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeAction.swift; sourceTree = "<group>"; };
+		CC3C035C26C9829A00B0CD3D /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		CC3C035E26C982A700B0CD3D /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Random.swift"; sourceTree = "<group>"; };
+		CC3C036326CA564700B0CD3D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3C035326C8288A00B0CD3D /* Common */,
-				CC3C034326C8239200B0CD3D /* Scene */,
+				CC3C034326C8239200B0CD3D /* Scenes */,
 				CC3C033E26C8232300B0CD3D /* Architecture */,
 				CC3C033426C8218800B0CD3D /* Models */,
 				CC3C030426C8205900B0CD3D /* AppDelegate.swift */,
@@ -156,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3C033726C821AE00B0CD3D /* Shape.swift */,
-				CC3C035826C82C3D00B0CD3D /* Action.swift */,
+				CC3C035826C82C3D00B0CD3D /* NodeAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,14 +180,15 @@
 			path = Architecture;
 			sourceTree = "<group>";
 		};
-		CC3C034326C8239200B0CD3D /* Scene */ = {
+		CC3C034326C8239200B0CD3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CC3C036226CA563D00B0CD3D /* GameScene */,
 				CC3C034E26C8249400B0CD3D /* Startup */,
 				CC3C034526C8239B00B0CD3D /* Stats */,
 				CC3C034426C8239600B0CD3D /* Main */,
 			);
-			path = Scene;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		CC3C034426C8239600B0CD3D /* Main */ = {
@@ -194,6 +205,9 @@
 		CC3C034526C8239B00B0CD3D /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				CC3C035B26C9827300B0CD3D /* ViewModel */,
+				CC3C035A26C9826800B0CD3D /* View */,
+				CC3C035C26C9829A00B0CD3D /* StatsViewController.swift */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -229,8 +243,33 @@
 			children = (
 				CC3C035426C828AF00B0CD3D /* UIView+LayoutAnchor.swift */,
 				CC3C035626C82AE000B0CD3D /* UIControl+Combine.swift */,
+				CC3C036026C9960F00B0CD3D /* CGRect+Random.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		CC3C035A26C9826800B0CD3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC3C035B26C9827300B0CD3D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C035E26C982A700B0CD3D /* StatsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CC3C036226CA563D00B0CD3D /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C036326CA564700B0CD3D /* GameScene.swift */,
+				CC3C036526CA565300B0CD3D /* GameSceneViewModel.swift */,
+			);
+			path = GameScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,8 +402,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC3C035226C824C800B0CD3D /* StartupViewModel.swift in Sources */,
+				CC3C036426CA564700B0CD3D /* GameScene.swift in Sources */,
 				CC3C033B26C8229400B0CD3D /* AppCoordinator.swift in Sources */,
+				CC3C035D26C9829A00B0CD3D /* StatsViewController.swift in Sources */,
 				CC3C034926C823B800B0CD3D /* MainCoordinator.swift in Sources */,
+				CC3C036126C9960F00B0CD3D /* CGRect+Random.swift in Sources */,
 				CC3C034026C8232D00B0CD3D /* WeakReference.swift in Sources */,
 				CC3C035026C824BF00B0CD3D /* StartupViewController.swift in Sources */,
 				CC3C030526C8205900B0CD3D /* AppDelegate.swift in Sources */,
@@ -373,9 +415,11 @@
 				CC3C035526C828AF00B0CD3D /* UIView+LayoutAnchor.swift in Sources */,
 				CC3C033826C821AE00B0CD3D /* Shape.swift in Sources */,
 				CC3C034B26C823C000B0CD3D /* MainViewController.swift in Sources */,
+				CC3C035F26C982A700B0CD3D /* StatsViewModel.swift in Sources */,
+				CC3C036626CA565300B0CD3D /* GameSceneViewModel.swift in Sources */,
 				CC3C035726C82AE000B0CD3D /* UIControl+Combine.swift in Sources */,
 				CC3C033D26C822BD00B0CD3D /* StartupCoordinator.swift in Sources */,
-				CC3C035926C82C3D00B0CD3D /* Action.swift in Sources */,
+				CC3C035926C82C3D00B0CD3D /* NodeAction.swift in Sources */,
 				CC3C034226C8234C00B0CD3D /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
