@@ -8,22 +8,6 @@
 import Combine
 import SpriteKit
 
-// TODO LIST
-/*
- OK Create stats screen showing how many items are in canvas
- OK Delete All button in stats screen
- OK add function in coordinator to show stats screen(modal)
- OK check memory management
- OK refactor spriteKit things
- OK long tap to remove
- OK Swipe to delete in stats screen
- OK collection view to shapes
-
- unit tests
- ui tests
- add physics
- */
-
 final class MainViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Shape>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Shape>
