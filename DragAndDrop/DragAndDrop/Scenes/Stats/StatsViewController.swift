@@ -90,17 +90,10 @@ extension StatsViewController: UITableViewDelegate {
     }
 }
 
-class DataSource: UITableViewDiffableDataSource<StatsViewController.Section,
+final class DataSource: UITableViewDiffableDataSource<StatsViewController.Section,
                                                 StatsViewController.StatsDetails> {
-
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
     }
 }
 
