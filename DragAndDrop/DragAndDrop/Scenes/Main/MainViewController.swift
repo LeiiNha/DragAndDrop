@@ -143,8 +143,11 @@ final class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        guard let shape = dataSource?.itemIdentifier(for: indexPath) else {   return  }
-        viewModel.spawn(shape: shape)
+        guard let shape = dataSource?.itemIdentifier(for: indexPath),
+              let scene = sceneView.scene else { return }
+        let popInArea = scene.frame
+        let position = popInArea.insetBy(dx: 25, dy: 25).randomPoint
+        viewModel.spawn(shape: shape, spawnedX: Float(position.x), spawnedY: Float(position.y))
     }
 }
 

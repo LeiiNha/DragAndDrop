@@ -12,7 +12,7 @@ protocol MainViewModelProtocol {
     func undoLastAction()
     func statsButtonPressed()
     func movedNode(previousX: Float, previousY: Float, uuid: String)
-    func spawn(shape: Shape)
+    func spawn(shape: Shape, spawnedX: Float, spawnedY: Float)
     func removeNode(uuid: String)
 }
 
@@ -39,7 +39,7 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
             }.store(in: &subscriptions)
     }
 
-    func spawn(shape: Shape) {
+    func spawn(shape: Shape, spawnedX: Float, spawnedY: Float) {
         let countSpawnedShapes = actionsLog.filter { log in
             guard case .spawn = log else { return false }
             return true
@@ -56,7 +56,7 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
             actionsLog.remove(at: offset)
 
         }
-        let action = NodeAction.spawn(shape: shape, uuid: UUID().uuidString)
+        let action = NodeAction.spawn(shape: shape, log: .init(x: spawnedX, y: spawnedY, uuid: UUID().uuidString))
         gameViewModel.doNodeAction(nodeAction: action)
         actionsLog.append(action)
     }
@@ -68,17 +68,41 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
     }
 
     func undoLastAction() {
-        guard let lastAction = actionsLog.enumerated().filter({ index, log in
+        let lastActions = actionsLog.enumerated().filter({ index, log in
             if case .spawn = log  { return true }
             else if case .dragDrop = log { return true }
 
             return false
-        }).last else { return }
+        })
+
+        guard let lastAction = lastActions.last else { return }
 
         switch lastAction.element {
-        case .dragDrop(let log):
-            gameViewModel.doNodeAction(nodeAction: .undoLastDragDrop(log: log))
-            actionsLog.remove(at: lastAction.offset)
+        case .dragDrop(let lastDragDrop):
+            let nodeUUID = lastDragDrop.uuid
+            var positions: [NodePosition] = []
+            
+            lastActions.forEach { item in
+                if case .spawn(_, let firstLog) = item.element,
+                   firstLog.uuid == nodeUUID {
+                    positions.insert(firstLog, at: 0)
+                    return
+                }
+                if case .dragDrop(let log) = item.element,
+                   log.uuid == nodeUUID {
+                    positions.append(log)
+                    return
+                }
+            }
+            // Last position is the current node position
+            positions.removeLast()
+
+            if let lastPosition = positions.last {
+                gameViewModel.doNodeAction(nodeAction: .undoLastDragDrop(log: lastPosition))
+                actionsLog.remove(at: lastAction.offset)
+                return
+            }
+
         case .spawn:
             gameViewModel.doNodeAction(nodeAction: .removeLastSpawn)
             actionsLog.remove(at: lastAction.offset)

@@ -8,16 +8,16 @@
 import Foundation
 
 enum NodeAction {
-    case dragDrop(log: DragDropLog)
-    case spawn(shape: Shape, uuid: String)
+    case dragDrop(log: NodePosition)
+    case spawn(shape: Shape, log: NodePosition)
     case removeLastSpawn
     case removeFirstSpawn
-    case undoLastDragDrop(log: DragDropLog)
+    case undoLastDragDrop(log: NodePosition)
     case removeAll(shapes: [Shape])
     case longTapRemove(uuid: String)
 }
 
-struct DragDropLog {
+struct NodePosition {
     let x: Float
     let y: Float
     let uuid: String

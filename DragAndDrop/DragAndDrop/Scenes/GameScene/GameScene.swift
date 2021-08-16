@@ -21,8 +21,10 @@ final class GameScene: SKScene {
                 switch action {
                 case .dragDrop:
                     break
-                case .spawn(let shape, let uuid):
-                    self.spawnRandom(shape: shape, uuid: uuid)
+                case .spawn(let shape, let log):
+                    self.spawnRandom(shape: shape,
+                                     uuid: log.uuid,
+                                     position: .init(x: CGFloat(log.x), y: CGFloat(log.y)))
                 case .undoLastDragDrop(let log):
                     self.undoLastDragDrop(log)
                 case .removeLastSpawn:
@@ -46,16 +48,14 @@ final class GameScene: SKScene {
             }.store(in: &subscriptions)
     }
 
-    private func undoLastDragDrop(_ log: DragDropLog) {
+    private func undoLastDragDrop(_ log: NodePosition) {
         guard let scene = scene else { return }
+
         let move = SKAction.move(to: .init(x: CGFloat(log.x), y: CGFloat(log.y)), duration: 0.25)
         let moveAndWait = SKAction.sequence([move, wait])
         scene.isPaused = false
-        guard let lastNode = nodeShape.first(where: { $0.node.name == log.uuid })?.node else { return }
-        let moveLastNode = SKAction.run { [weak lastNode] in
-            lastNode?.run(moveAndWait)
-        }
-        scene.run(moveLastNode)
+        guard let lastMovedNode = nodeShape.first(where: { $0.node.name == log.uuid })?.node else { return }
+        lastMovedNode.run(moveAndWait)
     }
 
     private func remove(node: SKNode?) {
@@ -71,15 +71,14 @@ final class GameScene: SKScene {
         scene.run(SKAction.sequence([removeNode, wait]))
     }
 
-    private func spawnRandom(shape: Shape, uuid: String) {
+    private func spawnRandom(shape: Shape, uuid: String, position: CGPoint) {
         let popIn = SKAction.scale(to: 1, duration: 0.25)
         let popInAndOut = SKAction.sequence([popIn, wait])
         let node = shape.node(uuid: uuid)
         guard let scene = scene else { return }
 
         let addNode = SKAction.run {
-            let popInArea = scene.frame
-            node.position = popInArea.insetBy(dx: 25, dy: 25).randomPoint
+            node.position = position
             node.xScale = 0
             node.yScale = 0
             node.run(popInAndOut)
