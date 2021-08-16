@@ -28,15 +28,16 @@ final class GameScene: SKScene {
                 case .removeLastSpawn:
                     self.remove(node: self.nodeShape.last?.node)
                 case let .removeAll(shapes):
-                    if shapes == Shape.allCases {
-                        self.removeAllChildren()
-                    } else {
+                    guard shapes == Shape.allCases else {
                         let nodesToRemove = self.nodeShape.compactMap { item -> SKNode? in
                             if shapes.contains(item.shape) { return item.node }
                             return nil
                         }
                         self.removeChildren(in: nodesToRemove)
+                        return
                     }
+                    self.removeAllChildren()
+
                 case .longTapRemove(let uuid):
                     self.remove(node: self.nodeShape.first(where: { $0.node.name == uuid })?.node)
                 case .removeFirstSpawn:
@@ -48,11 +49,11 @@ final class GameScene: SKScene {
     private func undoLastDragDrop(_ log: DragDropLog) {
         guard let scene = scene else { return }
         let move = SKAction.move(to: .init(x: CGFloat(log.x), y: CGFloat(log.y)), duration: 0.25)
-        let waitAndMove = SKAction.sequence([wait, move, wait])
-
+        let moveAndWait = SKAction.sequence([move, wait])
+        scene.isPaused = false
         guard let lastNode = nodeShape.first(where: { $0.node.name == log.uuid })?.node else { return }
         let moveLastNode = SKAction.run { [weak lastNode] in
-            lastNode?.run(waitAndMove)
+            lastNode?.run(moveAndWait)
         }
         scene.run(moveLastNode)
     }
