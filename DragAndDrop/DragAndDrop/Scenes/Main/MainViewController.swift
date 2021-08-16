@@ -15,9 +15,11 @@ import SpriteKit
  OK add function in coordinator to show stats screen(modal)
  OK check memory management
  OK refactor spriteKit things
+ OK long tap to remove
  unit tests
+ Swipe to delete in stats screen
  ui tests
- long tap to remove
+
  collection view to shapes?
  add physics
  */
@@ -78,6 +80,20 @@ final class MainViewController: UIViewController {
         configureSubviews()
         configureSubscriptions()
         configureGameScene()
+        configureLongTap()
+    }
+
+    private func configureLongTap() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        self.view.addGestureRecognizer(longPressRecognizer)
+    }
+
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        guard let scene = sceneView.scene else { return }
+        let location = sceneView.convert(sender.location(in: sceneView), to: scene)
+        if let touchedNodeName = scene.nodes(at: location).first?.name {
+            self.viewModel.removeNode(uuid: touchedNodeName)
+        }
     }
 
     private func configureSubscriptions() {
@@ -114,6 +130,8 @@ final class MainViewController: UIViewController {
                 self?.viewModel.statsButtonPressed()
             }
             .store(in: &subscriptions)
+
+        
     }
 
     private func configureSubviews() {

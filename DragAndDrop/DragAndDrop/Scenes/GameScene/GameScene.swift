@@ -28,8 +28,8 @@ final class GameScene: SKScene {
                     self?.remove(node: self?.nodes.last)
                 case .removeAll:
                     self?.removeAllChildren()
-                case .longTapRemove:
-                    break
+                case .longTapRemove(let uuid):
+                    self?.remove(node: self?.nodes.first(where: { $0.name == uuid }))
                 case .removeFirstSpawn:
                     self?.remove(node: self?.nodes.first)
                 }

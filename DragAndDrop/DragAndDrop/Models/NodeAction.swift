@@ -14,7 +14,7 @@ enum NodeAction {
     case removeFirstSpawn
     case undoLastDragDrop(log: DragDropLog)
     case removeAll
-    case longTapRemove
+    case longTapRemove(uuid: String)
 }
 
 struct DragDropLog {

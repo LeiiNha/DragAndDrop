@@ -132,8 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				CC3C035326C8288A00B0CD3D /* Common */,
-				CC3C034326C8239200B0CD3D /* Scenes */,
 				CC3C033E26C8232300B0CD3D /* Architecture */,
+				CC3C034326C8239200B0CD3D /* Scenes */,
 				CC3C033426C8218800B0CD3D /* Models */,
 				CC3C030426C8205900B0CD3D /* AppDelegate.swift */,
 				CC3C030626C8205900B0CD3D /* SceneDelegate.swift */,

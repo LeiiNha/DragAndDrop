@@ -13,6 +13,7 @@ protocol MainViewModelProtocol {
     func statsButtonPressed()
     func movedNode(previousX: Float, previousY: Float, uuid: String)
     func spawn(shape: Shape)
+    func removeNode(uuid: String)
 }
 
 final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: CoordinatedViewModel, MainViewModelProtocol {
@@ -56,6 +57,12 @@ final class MainViewModel<CoordinatorType: MainCoordinatorProtocol>: Coordinated
 
         }
         let action = NodeAction.spawn(shape: shape, uuid: UUID().uuidString)
+        gameViewModel.doNodeAction(nodeAction: action)
+        actionsLog.append(action)
+    }
+
+    func removeNode(uuid: String) {
+        let action = NodeAction.longTapRemove(uuid: uuid)
         gameViewModel.doNodeAction(nodeAction: action)
         actionsLog.append(action)
     }
